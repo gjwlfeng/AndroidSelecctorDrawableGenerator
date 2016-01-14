@@ -1,0 +1,104 @@
+<idea-plugin version="2">
+    <id>com.zf.androidplugin.selectdrawable_generator</id>
+    <name>Selector Drawable Generator</name>
+    <version>1.0</version>
+    <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个美国梦</vendor>
+
+    <description><![CDATA[
+      This plugin automatically generates drawable selectors from appropriately named Android resources.<br>
+
+    ]]></description>
+
+    <change-notes><![CDATA[
+      <html>
+<table cellspacing='0' style='border: solid #000 1px;'>
+    <thead>
+    <tr style='background-color: #E6F1F6;'>
+        <th style='border: solid #000 1px;padding:5px;'>File name suffix</th>
+        <th style='border: solid #000 1px;padding:5px;'>Drawable state</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td style='border: solid #000 1px;padding:5px;'>_normal</td>
+        <td style='border: solid #000 1px;padding:5px;'>(default state)</td>
+    </tr>
+    <tr style='background-color: #F8F8F8;'>
+        <td style='border: solid #000 1px;padding:5px;'>_pressed</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_pressed</td>
+    </tr>
+    <tr>
+        <td style='border: solid #000 1px;padding:5px;'>_focused</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_focused</td>
+    </tr>
+    <tr style='background-color: #F8F8F8;'>
+        <td style='border: solid #000 1px;padding:5px;'>_disabled</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_enabled</td>
+    </tr>
+    <tr>
+        <td style='border: solid #000 1px;padding:5px;'>_checked</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_checked</td>
+    </tr>
+    <tr style='background-color: #F8F8F8;'>
+        <td style='border: solid #000 1px;padding:5px;'>_selected</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_selected</td>
+    </tr>
+    <tr>
+        <td style='border: solid #000 1px;padding:5px;'>_hovered</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_hovered</td>
+    </tr>
+    <tr style='background-color: #F8F8F8;'>
+        <td style='border: solid #000 1px;padding:5px;'>_checkable</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_checkable</td>
+    </tr>
+    <tr>
+        <td style='border: solid #000 1px;padding:5px;'>_activated</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_activated</td>
+    </tr>
+    <tr style='background-color: #F8F8F8;'>
+        <td style='border: solid #000 1px;padding:5px;'>_windowfocused</td>
+        <td style='border: solid #000 1px;padding:5px;'>state_window_focused</td>
+    </tr>
+    </tbody>
+</table>
+  <br/>
+  <b>Plugin HomePage</b><br/>
+  这个插件是参考了<a href='https://github.com/inmite/android-selector-chapek'>https://github.com/inmite/android-selector-chapek</a>，在用的时候，感觉不方便所以自己也写了一个。
+  <br/>
+  <br/>
+  <b>1.0.0</b> (2016/01/14)
+  <ul>
+    <li>基本功能已经完完善，暂未发现bug</li>
+  </ul>
+  <br/>
+  <p>
+      如发现有什么不懂的，用着不顺手的，有bug，有任何问题，迎欢大家来批评，指出。邮箱（903600017@qq.com）。最后，要告诉大家一个秘密，我不会英语，说的不好听的记得用中言文哦。
+  </p>
+
+</html>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to _enable plugin in all products
+    <depends>com.intellij.modules.androidstudio</depends>-->
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="com.zf.androidplugin.selectdrawable.SelectDrawableAction"
+                class="com.zf.androidplugin.selectdrawable.SelectDrawableAction" text="Generator Selector Drawable "
+                description="请选择要生成selector drawabel 图片的资源文件(drawable 目录下的xml文件)">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="Images.EditExternally"/>
+        </action>
+    </actions>
+
+</idea-plugin>
