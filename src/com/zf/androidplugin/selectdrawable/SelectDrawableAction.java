@@ -29,7 +29,7 @@ public class SelectDrawableAction extends AnAction
 {
     List<DrawableFile> drawableFileList = new ArrayList<DrawableFile>();
     VirtualFile secondParent = null;
-    String selectorDrawableName = "";
+    String selectorDrawableName ;
 
     private static final String SUFFIX_XML = ".xml";
 
@@ -42,10 +42,12 @@ public class SelectDrawableAction extends AnAction
         String message = "请输入selector drawabel 文件名";
         do
         {
-            if ("".equals(selectorDrawableName.trim()))
+            if (selectorDrawableName == null)
+            {
+            } else if ("".equals(selectorDrawableName.trim()))
             {
                 showErrorDialog("请输入文件名", anActionEvent);
-            } else if (selectorDrawableName != null)
+            } else if (!isFindChild(selectorDrawableName))
             {
                 showErrorDialog("该目录下已经该文件名", anActionEvent);
             } else if (!FileGenerator.isValidFileName(selectorDrawableName))
@@ -55,20 +57,27 @@ public class SelectDrawableAction extends AnAction
 
             selectorDrawableName = Messages.showInputDialog(project, message, title, Messages.getQuestionIcon());
         }
-        while ("".equals(selectorDrawableName.trim()) || secondParent.findChild(selectorDrawableName.endsWith("SUFFIX_XML") ? selectorDrawableName : selectorDrawableName + SUFFIX_XML) != null || (!FileGenerator.isValidFileName(selectorDrawableName)));
+        while ((selectorDrawableName != null) && ("".equals(selectorDrawableName.trim()) || (!isFindChild(selectorDrawableName)) || (!FileGenerator.isValidFileName(selectorDrawableName))));
+
+        if (selectorDrawableName == null)
+            return;
 
         selectorDrawableName = selectorDrawableName.endsWith("SUFFIX_XML") ? selectorDrawableName : selectorDrawableName + SUFFIX_XML;
 
         Collections.sort(drawableFileList);
         SelectorRunable runnable = new SelectorRunable(drawableFileList, secondParent, selectorDrawableName);
         WriteCommandAction.runWriteCommandAction(anActionEvent.getProject(), runnable);
-        drawableFileList.clear();
-        selectorDrawableName = null;
+    }
+
+    public boolean isFindChild(String fileName)
+    {
+        return secondParent.findChild(fileName.endsWith("SUFFIX_XML") ? fileName : fileName + SUFFIX_XML) == null;
     }
 
     @Override
     public void update(AnActionEvent e)
     {
+        drawableFileList.clear();
         e.getPresentation().setEnabled(false);
         VirtualFile[] virtualFiles = e.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY);
         DrawableFile drawableFile = new DrawableFile();
