@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>com.zf.androidplugin.selectdrawable_generator</id>
     <name>Selector Drawable Generator</name>
-    <version>1.0</version>
+    <version>1.0.2</version>
     <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个美国梦</vendor>
 
     <description><![CDATA[
@@ -63,12 +63,18 @@
 </table>
   <br/>
   <b>Plugin HomePage</b><br/>
-  这个插件是参考了<a href='https://github.com/inmite/android-selector-chapek'>https://github.com/inmite/android-selector-chapek</a>，在用的时候，感觉不方便所以自己也写了一个。
+  这个插件是参考了<a href='https://github.com/inmite/android-selector-chapek' target="_blank">https://github.com/inmite/android-selector-chapek</a>，在用的时候，感觉不方便所以自己也写了一个。
+  <br/>
+  本插件源码<a href="https://github.com/903600017/AndroidSelecctorDrawableGenerator.git" target="_blank">https://github.com/903600017/AndroidSelecctorDrawableGenerator.git</a>
   <br/>
   <br/>
-  <b>1.0.0</b> (2016/01/14)
+  <b>1.0.1</b> (2016/01/14)
   <ul>
     <li>基本功能已经完完善，暂未发现bug</li>
+  </ul>
+  <b>1.0.2</b> (2016/01/18)
+  <ul>
+    <li>添加了自定义selector drawable文件名</li>
   </ul>
   <br/>
   <p>
@@ -84,8 +90,9 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to _enable plugin in all products
-    <depends>com.intellij.modules.androidstudio</depends>-->
+    <!-- uncomment to _enable plugin in all products-->
+    <depends>com.intellij.modules.androidstudio</depends>
+
 
 
     <extensions defaultExtensionNs="com.intellij">

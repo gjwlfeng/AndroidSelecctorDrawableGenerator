@@ -3,10 +3,17 @@ package com.zf.androidplugin.selectdrawable;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.MessageType;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.popup.Balloon;
+import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.util.messages.MessageBus;
+import com.intellij.openapi.wm.StatusBar;
+import com.intellij.openapi.wm.WindowManager;
+import com.intellij.ui.awt.RelativePoint;
 import com.zf.androidplugin.selectdrawable.dto.DrawableFile;
 import com.zf.androidplugin.selectdrawable.dto.DrawableStatus;
 
@@ -21,18 +28,42 @@ import java.util.regex.Matcher;
 public class SelectDrawableAction extends AnAction
 {
     List<DrawableFile> drawableFileList = new ArrayList<DrawableFile>();
-
     VirtualFile secondParent = null;
-    String stordrawName = null;
+    String selectorDrawableName = "";
+
+    private static final String SUFFIX_XML = ".xml";
 
     @Override
     public void actionPerformed(AnActionEvent anActionEvent)
     {
+        Project project = anActionEvent.getProject();
+
+        String title = "设置文件名";
+        String message = "请输入selector drawabel 文件名";
+        do
+        {
+            if ("".equals(selectorDrawableName.trim()))
+            {
+                showErrorDialog("请输入文件名", anActionEvent);
+            } else if (selectorDrawableName != null)
+            {
+                showErrorDialog("该目录下已经该文件名", anActionEvent);
+            } else if (!FileGenerator.isValidFileName(selectorDrawableName))
+            {
+                showErrorDialog("文件名无效", anActionEvent);
+            }
+
+            selectorDrawableName = Messages.showInputDialog(project, message, title, Messages.getQuestionIcon());
+        }
+        while ("".equals(selectorDrawableName.trim()) || secondParent.findChild(selectorDrawableName.endsWith("SUFFIX_XML") ? selectorDrawableName : selectorDrawableName + SUFFIX_XML) != null || (!FileGenerator.isValidFileName(selectorDrawableName)));
+
+        selectorDrawableName = selectorDrawableName.endsWith("SUFFIX_XML") ? selectorDrawableName : selectorDrawableName + SUFFIX_XML;
+
         Collections.sort(drawableFileList);
-        SelectorRunable runnable = new SelectorRunable(drawableFileList, secondParent, stordrawName);
+        SelectorRunable runnable = new SelectorRunable(drawableFileList, secondParent, selectorDrawableName);
         WriteCommandAction.runWriteCommandAction(anActionEvent.getProject(), runnable);
         drawableFileList.clear();
-        stordrawName = null;
+        selectorDrawableName = null;
     }
 
     @Override
@@ -88,18 +119,34 @@ public class SelectDrawableAction extends AnAction
                 drawableFileList.add(clone);
 
 
-            if (stordrawName == null && (drawableStatusByName != DrawableStatus.none))
+            if (selectorDrawableName == null && (drawableStatusByName != DrawableStatus.none))
             {
-                stordrawName = simpleName.replace(drawableStatusByName.name(), "") + Constants.SELECTOR_XML;
+                selectorDrawableName = simpleName.replace(drawableStatusByName.name(), "") + Constants.SELECTOR_XML;
             }
 
-            if (stordrawName == null && virtualFiles.length == i + 1)
+            if (selectorDrawableName == null && virtualFiles.length == i + 1)
             {
-                stordrawName = simpleName + Constants.SELECTOR_XML;
+                selectorDrawableName = simpleName + Constants.SELECTOR_XML;
             }
 
             if (!e.getPresentation().isEnabled())
                 e.getPresentation().setEnabled(true);
         }
+    }
+
+    private void showInfoDialog(String text, AnActionEvent e)
+    {
+        StatusBar statusBar = WindowManager.getInstance().getStatusBar((Project) DataKeys.PROJECT.getData(e.getDataContext()));
+
+        if (statusBar != null)
+            JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(text, MessageType.INFO, null).setFadeoutTime(10000L).createBalloon().show(RelativePoint.getCenterOf(statusBar.getComponent()), Balloon.Position.atRight);
+    }
+
+    private void showErrorDialog(String text, AnActionEvent e)
+    {
+        StatusBar statusBar = WindowManager.getInstance().getStatusBar((Project) DataKeys.PROJECT.getData(e.getDataContext()));
+
+        if (statusBar != null)
+            JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(text, MessageType.ERROR, null).setFadeoutTime(10000L).createBalloon().show(RelativePoint.getCenterOf(statusBar.getComponent()), Balloon.Position.atRight);
     }
 }

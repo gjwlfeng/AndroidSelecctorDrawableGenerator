@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class FileGenerator
 {
-    public static void creteDir(VirtualFile baseDir,String childdir)
+    public static void creteDir(VirtualFile baseDir, String childdir)
     {
         VirtualFile child = baseDir.findChild(childdir);
         if (child != null && child.exists() && child.isDirectory())
@@ -36,5 +36,12 @@ public class FileGenerator
         {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isValidFileName(String fileName)
+    {
+        if (fileName == null || fileName.length() > 255) return false;
+        else
+            return fileName.matches("[^\\s\\\\/:\\*\\?\\\"<>\\|](\\x20|[^\\s\\\\/:\\*\\?\\\"<>\\|])*[^\\s\\\\/:\\*\\?\\\"<>\\|\\.]$");
     }
 }
