@@ -102,7 +102,7 @@
     <actions>
         <!-- Add your actions here -->
         <action id="com.zf.androidplugin.selectdrawable.SelectDrawableAction"
-                class="com.zf.androidplugin.selectdrawable.SelectDrawableAction" text="Generator Selector Drawable "
+                class="com.zf.androidplugin.selectdrawable.SelectDrawableAction" text="Generate Selector Drawable "
                 description="请选择要生成selector drawabel 图片的资源文件(drawable 目录下的xml文件)">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="Images.EditExternally"/>
         </action>
