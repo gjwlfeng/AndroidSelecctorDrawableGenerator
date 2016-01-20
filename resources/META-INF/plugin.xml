@@ -1,11 +1,11 @@
 <idea-plugin version="2">
     <id>com.zf.androidplugin.selectdrawable_generator</id>
     <name>Selector Drawable Generator</name>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个美国梦</vendor>
 
     <description><![CDATA[
-      This plugin automatically generates drawable selectors from appropriately named Android resources.<br>
+     自动生成android Selector Drawable 资源图片(This plugin automatically generates drawable selectors from appropriately named Android resources).<br>
 
     ]]></description>
 
@@ -65,7 +65,7 @@
   <b>Plugin HomePage</b><br/>
   这个插件是参考了<a href='https://github.com/inmite/android-selector-chapek' target="_blank">https://github.com/inmite/android-selector-chapek</a>，在用的时候，感觉不方便所以自己也写了一个。
   <br/>
-  本插件源码<a href="https://github.com/903600017/AndroidSelecctorDrawableGenerator.git" target="_blank">https://github.com/903600017/AndroidSelecctorDrawableGenerator.git</a>
+  本插件源码<a href="https://plugins.jetbrains.com/plugin/8153?pr=androidstudio" target="_blank">https://plugins.jetbrains.com/plugin/8153?pr=androidstudio</a>
   <br/>
   <br/>
   <b>1.0.1</b> (2016/01/14)
@@ -79,6 +79,11 @@
   <b>1.0.3</b> (2016/01/18)
   <ul>
     <li>修改了自定义selector drawable文件命名bug</li>
+  </ul>
+   <b>1.0.4</b> (2016/01/20)
+  <ul>
+    <li>1.国际化插件</li>
+    <li>2.生成成功自动打开文件</li>
   </ul>
   <br/>
   <p>
@@ -94,11 +99,9 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to _enable plugin in all products-->
+    <!-- uncomment to _enable plugin in all products
     <depends>com.intellij.modules.androidstudio</depends>
-
-
-
+    -->
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
@@ -108,7 +111,7 @@
         <!-- Add your actions here -->
         <action id="com.zf.androidplugin.selectdrawable.SelectDrawableAction"
                 class="com.zf.androidplugin.selectdrawable.SelectDrawableAction" text="Generate SelectorDrawable "
-                description="请选择要生成selector drawabel 图片的资源文件(drawable 目录下的xml文件)">
+                description="Please choose to generate the selector drawabel picture resource files (drawable XML files in the directory)">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="Images.EditExternally"/>
         </action>
     </actions>

@@ -26,7 +26,7 @@ public class SelectorDrawableGenerator
     private static final String AT = "@";
     private static final String BACKSLASH = "/";
 
-    public static void generate(List<DrawableFile> drawableFileList, VirtualFile outputFile)
+    public static void generate(List<DrawableFile> drawableFileList, VirtualFile outputFile) throws IOException
     {
         Element root = new Element(SELECTOR);
         root.addNamespaceDeclaration(NS, SCHEMA);
@@ -41,12 +41,11 @@ public class SelectorDrawableGenerator
             }
             root.appendChild(element);
         }
-
         outputFile(root, outputFile);
     }
 
 
-    private static void outputFile(Element element, VirtualFile outputFile)
+    private static void outputFile(Element element, VirtualFile outputFile) throws IOException
     {
         Document doc = new Document(element);
         OutputStream os = null;
@@ -57,9 +56,6 @@ public class SelectorDrawableGenerator
             Serializer serializer = new Serializer(os);
             serializer.setIndent(4);
             serializer.write(doc);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
         } finally
         {
             if (os != null)
