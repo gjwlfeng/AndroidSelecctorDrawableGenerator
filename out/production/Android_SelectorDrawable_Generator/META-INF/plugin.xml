@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>com.zf.androidplugin.selectdrawable_generator</id>
     <name>Selector Drawable Generator</name>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个美国梦</vendor>
 
     <description><![CDATA[
@@ -80,14 +80,14 @@
   <ul>
     <li>修改了自定义selector drawable文件命名bug</li>
   </ul>
-   <b>1.0.4</b> (2016/01/18)
+   <b>1.0.4</b> (2016/01/20)
   <ul>
-    <li>1.国际化插件</li>
-    <li>2.生成成功自动打开文件</li>
+    <li>1.国际化插件（Join the internationalization）</li>
+    <li>2.生成成功自动打开文件（Open the newly created file）</li>
   </ul>
   <br/>
   <p>
-      如发现有什么不懂的，用着不顺手的，有bug，有任何问题，迎欢大家来批评，指出。邮箱（903600017@qq.com）。最后，要告诉大家一个秘密，我不会英语，说的不好听的记得用中言文哦。
+      如发现有什么不懂的，用着不顺手的，有bug，有任何问题，迎欢大家来批评，指出。邮箱（903600017@qq.com）。
   </p>
 
 </html>
