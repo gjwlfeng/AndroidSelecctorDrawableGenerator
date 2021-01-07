@@ -42,7 +42,6 @@ public class FileOperation
             return;
         if(xmlVirtualFile.isDirectory())
             throw  new IllegalArgumentException("Parameter error\n");
-        fileEditorManagerEx.getWindows()[0].setAsCurrentWindow(true);
         fileEditorManagerEx.openFile(xmlVirtualFile, true);
     }
 
@@ -70,7 +69,7 @@ public class FileOperation
     {
         if (content == null)
             throw new IllegalArgumentException("Parameters cannot be empty\n");
-        return content.toLowerCase().endsWith(SUFFIX_XML) ? true : false;
+        return content.toLowerCase().endsWith(SUFFIX_XML);
     }
 
     /**

@@ -45,3 +45,9 @@ Temporary Items
 #
 .zip
 .rar
+
+#排除插件
+Android_SelectorDrawable_Generator.zip
+
+#排除编译后的中间文件
+/out

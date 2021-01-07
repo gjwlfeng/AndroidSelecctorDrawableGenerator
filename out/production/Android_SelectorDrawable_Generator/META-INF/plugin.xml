@@ -1,12 +1,11 @@
-<idea-plugin version="2">
-    <id>com.zf.androidplugin.selectdrawable_generator</id>
+<idea-plugin>
+    <id>com.zf.android.plugin.selector_drawable_generator</id>
     <name>Selector Drawable Generator</name>
     <version>1.0.5</version>
     <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个美国梦</vendor>
 
     <description><![CDATA[
      自动生成android Selector Drawable 资源图片(This plugin automatically generates drawable selectors from appropriately named Android resources).<br>
-
     ]]></description>
 
     <change-notes><![CDATA[
@@ -85,9 +84,13 @@
     <li>1.国际化插件（Join the internationalization）</li>
     <li>2.生成成功自动打开文件（Open the newly created file）</li>
   </ul>
+  <b>1.0.5</b> (2021/01/06)
+  <ul>
+    <li>支持新最的android studio版本（Support the latest Android studio version）</li>
+  </ul>
   <br/>
   <p>
-      如发现有什么不懂的，用着不顺手的，有bug，有任何问题，迎欢大家来批评，指出。邮箱（903600017@qq.com）。
+      如发现有什么不懂的，用着不顺手的，有bug，有任何问题，迎欢大家来批评，指出。邮箱（903600017@qq.com）。最后，要告诉大家一个秘密，我不会英语，说的不好听的记得用中言文哦。
   </p>
 
 </html>
@@ -95,16 +98,18 @@
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="141.0"/>
+    <idea-version since-build="201"/>
+<!--    <idea-version since-build="173.0"/>-->
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to _enable plugin in all products
+    <!-- uncomment to _enable plugin in all products-->
+<!--    <depends>com.intellij.modules.java</depends>-->
     <depends>com.intellij.modules.androidstudio</depends>
-    -->
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
+        <notificationGroup id="SelectorDrawableGenerator" displayType="BALLOON" key="notification.group.name"/>
     </extensions>
 
     <actions>
@@ -112,7 +117,7 @@
         <action id="com.zf.androidplugin.selectdrawable.SelectDrawableAction"
                 class="com.zf.androidplugin.selectdrawable.SelectDrawableAction" text="Generate SelectorDrawable "
                 description="Please choose to generate the selector drawabel picture resource files (drawable XML files in the directory)">
-            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="Images.EditExternally"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="before" relative-to-action="Images.EditExternally"/>
         </action>
     </actions>
 

@@ -3,8 +3,7 @@ package com.zf.androidplugin.selectdrawable.dto;
 /**
  * Created by Lenovo on 2016/1/8.
  */
-public class DrawableFile implements Cloneable ,Comparable<DrawableFile>
-{
+public class DrawableFile implements Cloneable, Comparable<DrawableFile> {
     //文件名
     private String simpleName;
     //文件全名
@@ -14,49 +13,40 @@ public class DrawableFile implements Cloneable ,Comparable<DrawableFile>
     //文件对应状态的true,false
     private boolean status;
 
-    public String getSimpleName()
-    {
+    public String getSimpleName() {
         return simpleName;
     }
 
-    public void setSimpleName(String simpleName)
-    {
+    public void setSimpleName(String simpleName) {
         this.simpleName = simpleName;
     }
 
-    public boolean isStatus()
-    {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status)
-    {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public DrawableStatus getDrawableStatus()
-    {
+    public DrawableStatus getDrawableStatus() {
         return drawableStatus;
     }
 
-    public String getFullPathName()
-    {
+    public String getFullPathName() {
         return fullPathName;
     }
 
-    public void setFullPathName(String fullPathName)
-    {
+    public void setFullPathName(String fullPathName) {
         this.fullPathName = fullPathName;
     }
 
-    public void setDrawableStatus(DrawableStatus drawableStatus)
-    {
+    public void setDrawableStatus(DrawableStatus drawableStatus) {
         this.drawableStatus = drawableStatus;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "DrawableFile{" +
                 "simpleName='" + simpleName + '\'' +
                 ", fullPathName='" + fullPathName + '\'' +
@@ -66,8 +56,7 @@ public class DrawableFile implements Cloneable ,Comparable<DrawableFile>
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof DrawableFile)) return false;
 
@@ -77,34 +66,28 @@ public class DrawableFile implements Cloneable ,Comparable<DrawableFile>
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return simpleName != null ? simpleName.hashCode() : 0;
     }
 
     @Override
-    public Object clone()
-    {
-        DrawableFile cloned = null;
-        try
-        {
-            cloned = (DrawableFile) super.clone();
-        } catch (CloneNotSupportedException e)
-        {
+    public Object clone() {
+        DrawableFile clone;
+        try {
+            clone = (DrawableFile) super.clone();
+            clone.drawableStatus = DrawableStatus.none;
+            return clone;
+        } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        cloned.drawableStatus = DrawableStatus.none;
-        return cloned;
+        return null;
     }
 
     @Override
-    public int compareTo(DrawableFile o)
-    {
-        if(o.getDrawableStatus()==this.getDrawableStatus())
-        {
+    public int compareTo(DrawableFile o) {
+        if (o.getDrawableStatus() == this.getDrawableStatus()) {
             return 1;
-        } else if(o.getDrawableStatus()==DrawableStatus.none || o.getDrawableStatus()==DrawableStatus._normal)
-        {
+        } else if (o.getDrawableStatus() == DrawableStatus.none || o.getDrawableStatus() == DrawableStatus._normal) {
             return -1;
         }
         return 1;
