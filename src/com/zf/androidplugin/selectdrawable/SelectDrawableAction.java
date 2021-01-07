@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
  */
 public class SelectDrawableAction extends AnAction {
     List<DrawableFile> drawableFileList = new ArrayList<>();
-    VirtualFile secondParent = null;
+    VirtualFile firstParent = null;
     String selectorDrawableName;
 
     boolean isDirectory = false;
@@ -45,12 +45,26 @@ public class SelectDrawableAction extends AnAction {
         String title = I18n.getString(ResourceI18n.SET_TITLE);
         String tipMessage = I18n.getString(ResourceI18n.PLEASE_ENTER_SELECTOR_DRAWABLE_NAME);
         while (isNeedInputDialog) {
-            selectorDrawableName = Messages.showInputDialog(project, tipMessage, title, Messages.getQuestionIcon());
+
+            String initialValue = null;
+            if (!drawableFileList.isEmpty()) {
+                for (DrawableFile drawableFile : drawableFileList) {
+                    if (drawableFile.getDrawableStatus() == DrawableStatus.none) {
+                        initialValue = drawableFile.getSimpleName();
+                    }
+                }
+
+                if (initialValue == null) {
+                    initialValue = drawableFileList.get(0).getSimpleName();
+                }
+            }
+
+            selectorDrawableName = Messages.showInputDialog(project, tipMessage, title, Messages.getQuestionIcon(), initialValue, null);
             if (selectorDrawableName != null) {
                 if ("".equals(selectorDrawableName.trim())) {
                     String message = I18n.getString(ResourceI18n.PLEASE_ENTER_SELECTOR_DRAWABLE_NAME);
                     showErrorDialog(anActionEvent, message);
-                } else if (FileOperation.isFindChild(secondParent, FileOperation.addSuffixXml(selectorDrawableName))) {
+                } else if (FileOperation.isFindChild(firstParent, FileOperation.addSuffixXml(selectorDrawableName))) {
                     String message = I18n.getString(ResourceI18n.FILE_ALREADY_EXISTS);
                     showErrorDialog(anActionEvent, message);
                 } else if (!FileOperation.isValidFileName(FileOperation.addSuffixXml(selectorDrawableName))) {
@@ -75,7 +89,7 @@ public class SelectDrawableAction extends AnAction {
                 //创建drawable 文件夹
                 VirtualFile virtualFile = null;
                 try {
-                    virtualFile = FileOperation.creteDir(secondParent, Constants.DRAWABLE);
+                    virtualFile = FileOperation.creteDir(firstParent, Constants.DRAWABLE);
                 } catch (IOException e) {
                     String message = I18n.getString(ResourceI18n.CREATE_DRAWABLE_DIR_FAILED);
                     showErrorDialog(finalAnActionEvent, message);
@@ -129,7 +143,7 @@ public class SelectDrawableAction extends AnAction {
                 break;
             }
 
-            VirtualFile firstParent = virtualFile.getParent();
+            firstParent = virtualFile.getParent();
             if ((!firstParent.exists()) || (!firstParent.isDirectory())) {
                 e.getPresentation().setEnabled(false);
                 break;
@@ -142,7 +156,7 @@ public class SelectDrawableAction extends AnAction {
                 return;
             }
 
-            secondParent = firstParent.getParent();
+            VirtualFile secondParent = firstParent.getParent();
             if (secondParent == null || (!secondParent.isDirectory()) || (!secondParent.getName().equals(Constants.RES))) {
                 e.getPresentation().setEnabled(false);
                 break;
@@ -160,6 +174,10 @@ public class SelectDrawableAction extends AnAction {
 
             if (!drawableFileList.contains(clone))
                 drawableFileList.add(clone);
+        }
+
+        if (drawableFileList.isEmpty()) {
+            e.getPresentation().setEnabled(false);
         }
     }
 

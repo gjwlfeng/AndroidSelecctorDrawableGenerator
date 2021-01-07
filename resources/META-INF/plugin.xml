@@ -2,7 +2,7 @@
     <id>com.zf.android.plugin.selector_drawable_generator</id>
     <name>Selector Drawable Generator</name>
     <version>1.0.5</version>
-    <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个美国梦</vendor>
+    <vendor email="903600017@qq.com" url="http://www.yourcompany.com">我有一个梦像雨后彩虹 用所有泪水换来笑容</vendor>
 
     <description><![CDATA[
      自动生成android Selector Drawable 资源图片(This plugin automatically generates drawable selectors from appropriately named Android resources).<br>
@@ -104,8 +104,8 @@
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <!-- uncomment to _enable plugin in all products-->
-<!--    <depends>com.intellij.modules.java</depends>-->
-    <depends>com.intellij.modules.androidstudio</depends>
+    <depends>com.intellij.modules.java</depends>
+<!--    <depends>com.intellij.modules.androidstudio</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
